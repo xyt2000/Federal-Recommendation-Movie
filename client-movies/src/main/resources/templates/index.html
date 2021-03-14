@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org" dir="ltr">
+<head>
+	<title>推荐电影</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+	<!--[if IE 6]>
+		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
+	<![endif]-->
+	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-func.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+	<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+</head>
+<body>
+<!-- Shell -->
+<div id="shell">
+	<!-- Header -->
+	<div id="header">
+		<h1>MOVIE REFERENCE</h1>
+		<!-- Navigation -->
+		<div id="navigation">
+			<ul>
+			    <li><a class="active" href="/index">MAIN</a></li>
+			    <li><a href="/home">HOME</a></li>
+			</ul>
+		</div>
+		<!-- end Navigation -->
+		<div id="sub-navigation">
+			<ul>
+			    <li><a class="active" href="/index">SHOW ALL</a></li>
+			    <li><a href="/top">TOP RATED</a></li>
+			    <li><a href="#">RECOMMENDATION</a></li>
+			</ul>
+			<div id="search">
+				<form action="home_submit" method="get" accept-charset="utf-8">
+					<label for="search-field">SEARCH</label>
+					<input type="text" name="search field" value="Enter search here" id="search-field" title="Enter search here" class="blink search-field"  />
+					<input type="submit" value="GO!" class="search-button" />
+				</form>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- end Header -->
+	<div class="inner_copyright">Collect from <a href="http://www.cssmoban.com/" target="_blank" title="网站模板">网站模板</a></div>
+	<!-- Main -->
+	<div id="sub-navigation">
+		<ul style="font-size: 20px">
+			<li><a href="#">类型</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<li><a class="active" href="/index">全部</a></li>&nbsp;&nbsp;&nbsp;
+			<li><a href="/drama">剧情</a></li>&nbsp;&nbsp;&nbsp;
+			<li><a href="/action">动作</a></li>&nbsp;&nbsp;&nbsp;
+			<li><a href="/cartoon">动画</a></li>&nbsp;&nbsp;&nbsp;
+			<li><a href="/suspense">悬疑</a></li>&nbsp;&nbsp;&nbsp;
+			<li><a href="/comedy">喜剧</a></li>&nbsp;&nbsp;&nbsp;
+			<li><a href="/horror">惊悚</a></li>&nbsp;&nbsp;&nbsp;
+		</ul>
+	</div>
+
+	<div id="main">
+		<!-- Content -->
+		<div id="SHOWMOVIES">
+			<br>
+			<br>
+			<div v-for="(movie,index) in currentPageData" :key="index">
+				<div class="col-md-2">
+<a v-bind:href="['/movie/detail/'+movie.id]">
+					<img v-bind:src=movie.postUrl  class="img-responsive center-block img-rounded" style="width:200px;height: 200px">
+					<h5>{{movie.title}}</h5>
+					<h5>{{movie.rate}}</h5>
+</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+			<button @click="prevPage()">
+				上一页
+			</button>
+			<span>第{{currentPage}}页/共{{totalPage}}页</span>
+			<button @click="nextPage()">
+				下一页
+			</button></div>
+				<div class="col-md-4"></div>
+			</div>
+		</div>
+		<!--
+		<div id="content">
+			<div class="box">
+				<div class="head">
+					<h2>LATEST TRAILERS</h2>
+					<p class="text-right"><a href="#">See all</a></p>
+				</div>
+				<div>
+		</div>
+		<div id="news">
+			<div class="head">
+				<h3>NEWS</h3>
+				<p class="text-right"><a href="#">See all</a></p>
+			</div>
+			<div class="content">
+				<p class="date">12.04.09</p>
+				<h4>Disney's A Christmas Carol</h4>
+				<p>&quot;Disney's A Christmas Carol,&quot; a multi-sensory thrill ride re-envisioned by Academy Award&reg;-winning filmmaker Robert Zemeckis, captures... </p>
+				<a href="#">Read more</a>
+			</div>
+			<div class="content">
+				<p class="date">11.04.09</p>
+				<h4>Where the Wild Things Are</h4>
+				<p>Innovative director Spike Jonze collaborates with celebrated author Maurice Sendak to bring one of the most beloved books of all time to the big screen in &quot;Where the Wild Things Are,&quot;...</p>
+				<a href="#">Read more</a>
+			</div>
+			<div class="content">
+				<p class="date">10.04.09</p>
+				<h4>The Box</h4>
+				<p>Norma and Arthur Lewis are a suburban couple with a young child who receive an anonymous gift bearing fatal and irrevocable consequences.</p>
+				<a href="#">Read more</a>
+			</div>
+		</div>
+		<div id="coming">
+			<div class="head">
+				<h3>COMING SOON<strong>!</strong></h3>
+				<p class="text-right"><a href="#">See all</a></p>
+			</div>
+			<div class="content">
+				<h4>The Princess and the Frog </h4>
+					<a href="#"><img src="css/images/coming-soon1.jpg" alt="coming soon" /></a>
+				<p>Walt Disney Animation Studios presents the musical "The Princess and the Frog," an animated comedy set in the great city of New Orleans...</p>
+				<a href="#">Read more</a>
+			</div>
+			<div class="cl">&nbsp;</div>
+			<div class="content">
+				<h4>The Princess and the Frog </h4>
+					<a href="#"><img src="css/images/coming-soon2.jpg" alt="coming soon" /></a>
+				<p>Walt Disney Animation Studios presents the musical "The Princess and the Frog," an animated comedy set in the great city of New Orleans...</p>
+				<a href="#">Read more</a>
+			</div>
+
+		</div>
+		 -->
+	</div>
+
+<div class="row">
+		<p> &copy; 2021 Movie Reference All Rights Reserved</p>
+	</div>
+
+	</div>
+
+<!-- end Shell -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+<script>
+		new Vue({
+			el:"#SHOWMOVIES",
+			data(){
+				return{
+					movies:null,
+					totalPage: 1, // 统共页数，默认为1
+					currentPage: 1, //当前页数 ，默认为1
+					pageSize: 24, // 每页显示数量
+					currentPageData: [], //当前页显示内容
+					url:"",
+				}
+			},
+			mounted() {
+				this.getUrl();
+				this.get(this.url);
+			},
+			methods:{
+				getUrl(){
+					this.url = window.location.href;
+					this.url =this.url.substring(22,this.url.length);
+					console.log("url",this.url);
+				},
+				setCurrentPageData() {
+					let begin = (this.currentPage - 1) * this.pageSize;
+					let end = this.currentPage * this.pageSize;
+					this.currentPageData = this.movies.slice(
+							begin,
+							end
+					);
+				},
+				//上一页
+				prevPage() {
+					console.log(this.currentPage);
+					if (this.currentPage === 1) return;
+					this.currentPage--;
+					this.setCurrentPageData();
+
+				},
+				// 下一页
+				nextPage() {
+					if (this.currentPage === this.totalPage)return;
+					this.currentPage++;
+					this.setCurrentPageData();
+
+				},
+				//获取列车页面
+				get: function(url){
+					if(url==="index"){
+					axios
+						.get("http://localhost:8080/api/movieCenter/movies")
+						.then(
+								response =>{
+									this.movies = response.data;
+									this.totalPage = Math.ceil(this.movies.length / this.pageSize);
+									this.totalPage = this.totalPage === 0 ? 1 : this.totalPage;
+									this.setCurrentPageData();
+								}
+						)}
+					else if(url==="top"){
+						axios
+								.get("http://localhost:8080/api/movieCenter/top")
+								.then(
+										response =>{
+											this.movies = response.data;
+											this.totalPage = Math.ceil(this.movies.length / this.pageSize);
+											this.totalPage = this.totalPage === 0 ? 1 : this.totalPage;
+											this.setCurrentPageData();
+										}
+								)
+					}
+					else{
+						let param = new URLSearchParams();
+						param.append("type",url);
+						axios
+								.post("http://localhost:8080/api/movieCenter/type", param)
+								.then(
+										response =>{
+											this.movies = response.data;
+											this.totalPage = Math.ceil(this.movies.length / this.pageSize);
+											this.totalPage = this.totalPage === 0 ? 1 : this.totalPage;
+											this.setCurrentPageData();
+										}
+								)
+
+					}
+				},
+			}
+		})
+	</script>
+<style>
+.copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+</style>
+
+
+
+</body>
+
+</html>

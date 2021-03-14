@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>注册界面</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h1 style="margin-left: 50px">
+                <a href="#" class="router-link-active">
+                    <span class="logo-name">Federal Recommendation</span>
+                </a>
+            </h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title" style="text-align: center">注册</h1>
+                </div>
+                <br>
+                <br>
+                <form method="post" action="/register">
+                    <div class="input-group input-group-lg" style="margin-left: 20px;margin-right: 20px;">
+                        <span class="input-group-addon" id="basic-addon1">昵称</span>
+                        <input type="text" class="form-control" name="name" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="input-group  input-group-lg" style="margin-left: 20px;margin-right: 20px;">
+                        <span class="input-group-addon" id="basic-addon2">密码</span>
+                        <input type="password" class="form-control" name="password" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="input-group  input-group-lg" style="margin-left: 20px;margin-right: 20px;">
+                        <span class="input-group-addon" id="basic-addon6">电话</span>
+                        <input type="text" class="form-control" name="phoneNum" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="input-group  input-group-lg" style="margin-left: 20px;margin-right: 20px;">
+                    <span class="input-group-addon"
+                          id="basic-addon7">邮箱</span>
+                        <input type="text" class="form-control" name="mail" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="input-group  input-group-lg" style="margin-left: 20px;margin-right: 20px;">
+                        <span class="input-group-addon" id="basic-addon9">爱好</span>
+                        <div style="font-size: 20px">
+                            <label class="checkbox-inline" style="">
+                                <input type="checkbox" id="inlineCheckbox1" name="hobby" value="剧情" > 剧情
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox2" name="hobby" value="动作"> 动作
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox3" name="hobby" value="动画"> 动画
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox4" name="hobby" value="喜剧"> 喜剧
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox5"  name="hobby" value="悬疑"> 悬疑
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="inlineCheckbox6" name="hobby" value="惊悚"> 惊悚
+                            </label>
+                        </div>
+                    </div>
+
+                    <br>
+                    <br>
+                    <label class="checkbox-inline" style="margin-left: 100px;font-size: 15px">
+                        <input type="checkbox" value="option1" style="display: inline-block;width: 15px;height: 15px">
+                        <p style="margin-top: 2px">我已阅读并同意遵守 《联邦推荐系统》 《隐私权政策》</p>
+                    </label>
+                    <br>
+                    <br>
+                    <div style="text-align: center">
+                        <a href="login.html">
+                            <button type="submit" class="btn btn-primary btn-lg" style="margin: 25px">注册</button>
+                        </a>
+                        <a href="login.html">
+                            <button type="button" class="btn btn-primary btn-lg" style="margin: 25px">返回</button>
+                        </a>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
