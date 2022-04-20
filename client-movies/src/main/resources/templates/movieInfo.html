@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org" dir="ltr">
+<head>
+    <title>推荐电影</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="http://localhost:8080/css/style.css" type="text/css" media="all" />
+    <!--[if IE 6]>
+    <link rel="stylesheet" href="http://localhost:8080/css/ie6.css" type="text/css" media="all" />
+    <![endif]-->
+    <script type="text/javascript" src="http://localhost:8080/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/js/jquery-func.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+</head>
+<body>
+<!-- Shell -->
+<div id="shell">
+    <!-- Header -->
+    <div id="header">
+        <h1>MOVIE REFERENCE</h1>
+        <!-- Navigation -->
+        <div id="navigation">
+            <ul>
+                <li><a class="active" href="#">MAIN</a></li>
+                <li><a href="#">HOME</a></li>
+            </ul>
+        </div>
+        <!-- end Navigation -->
+        <div id="sub-navigation">
+            <ul>
+                <li><a href="#">SHOW ALL</a></li>
+                <li><a href="#">TOP RATED</a></li>
+                <li><a href="#">RECOMMENDATION</a></li>
+            </ul>
+            <div id="search">
+                <form action="home_submit" method="get" accept-charset="utf-8">
+                    <label for="search-field">SEARCH</label>
+                    <input type="text" name="search field" value="Enter search here" id="search-field" title="Enter search here" class="blink search-field"  />
+                    <input type="submit" value="GO!" class="search-button" />
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- end Header -->
+    <div class="inner_copyright">Collect from <a href="http://www.cssmoban.com/" target="_blank" title="网站模板">网站模板</a></div>
+    <!-- Main -->
+    <div id="main">
+        <!-- Content -->
+        <div style="width: 80%;height: 1000px;margin: 0 auto">
+            <div id="movie">
+            <div th:object="${movie}">
+                <br>
+                <br>
+                <div class="col-lg-6 col-lg-offset-3" style="width: 200px;height: 200px">
+                    <img th:src="@{'http://localhost:8080/'+ ${movie.getPostUrl()}}"
+                         alt="通用的占位符缩略图"style="height:300px;font-size: 20px">
+                </div>
+                <br>
+                <br>
+                <div class="col-lg-8" style="position: absolute;top:540px">
+                    <h3><strong>电影名</strong></h3>
+                    <h3 th:text="*{title}">xxxx</h3>
+                </div>
+
+                <div class="col-lg-8" style="position: absolute;top:670px">
+                    <h3><strong>商品类型</strong></h3>
+                    <h3 th:text="*{type}">xxxx</h3>
+                </div>
+
+                <div class="col-lg-8" style="position: absolute;top:820px">
+                    <h3><strong>主演</strong></h3>
+                    <h3 th:text="*{actors}">xxxx</h3>
+                    <p hidden id = "mId" th:text="*{id}">xxxx</p>
+
+                </div>
+
+                <div class="col-lg-8" style="position: absolute;top:1020px">
+                    <h3><strong>电影详情</strong></h3>
+                    <h3 th:text="*{abs}">xxxx</h3>
+                </div>
+                <div  style="position: absolute;top:1320px">
+            <div class="row">
+                <div th:object="${user}">
+                    <p hidden id = "uId" th:text="${user.getId()}">xxxx</p>
+                <div class="col-md-4">
+                    <a> <button type="submit" @click="addLove()" class="btn btn-danger" style="width:100px;height:50px;font-size:29px">
+                       <p> <strong>喜爱</strong></p></button></a>
+                </div>
+                <div class="col-md-4" >
+                    <button type="submit" @click="addHate()" class="btn btn-warning" style="width:100px;height:50px;font-size:29px">
+                        <p> <strong>讨厌</strong></p></button>
+                </div>
+                <div class="col-md-4" >
+                    <button type="submit" @click="addCollect()" class="btn btn-success" style="width:100px;height:50px;font-size:29px">
+                        <p> <strong>收藏</strong></p></button>
+                </div>
+            </div>
+            </div>
+        </div>
+            </div>
+    </div>
+</div>
+</div>
+<!-- end Shell -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+<script>
+    new Vue({
+        el:"#movie",
+        data(){
+            return{
+                mId:"",
+                uId:"",
+            }
+        },
+        mounted() {
+        },
+        methods:{
+            addLove(){
+                this.mId = document.getElementById("mId").innerHTML;
+                this.uId = document.getElementById("uId").innerHTML;
+                let param = new URLSearchParams();
+                param.append("mId",this.mId);
+                param.append("uId",this.uId);
+                axios
+                    .post("http://localhost:8080/api/movieCenter/addLove", param)
+                    .then(
+                        response =>{
+                            if(response.data==true){
+                                alert("成功加入喜欢列表")
+                            }
+                            else {
+                                alert("无需重复添加")
+                            }
+                        }
+                    )
+            },
+            addCollect(){
+                this.mId = document.getElementById("mId").innerHTML;
+                this.uId = document.getElementById("uId").innerHTML;
+                let param = new URLSearchParams();
+                param.append("mId",this.mId);
+                param.append("uId",this.uId);
+                axios
+                    .post("http://localhost:8080/api/movieCenter/addCollect", param)
+                    .then(
+                        response =>{
+                            if(response.data==true){
+                                alert("成功加入收藏列表")
+                            }
+                            else {
+                                alert("无需重复添加")
+                            }
+                        }
+                    )
+            },
+            addHate(){
+                this.mId = document.getElementById("mId").innerHTML;
+                this.uId = document.getElementById("uId").innerHTML;
+                let param = new URLSearchParams();
+                param.append("mId",this.mId);
+                param.append("uId",this.uId);
+                axios
+                    .post("http://localhost:8080/api/movieCenter/addHate", param)
+                    .then(
+                        response =>{
+                            if(response.data==true){
+                                alert("成功加入厌恶列表")
+                            }
+                            else {
+                                alert("无需重复添加")
+                            }
+                        }
+                    )
+            },
+        }
+    })
+</script>
+<style>
+    .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+</style>
+</body>
+
+</html>

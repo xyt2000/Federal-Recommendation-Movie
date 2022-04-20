@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>登录界面</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+
+
+
+
+    </style>
+</head>
+<body style="background:url(/pic/2.jpg)">
+<br>
+<div class="row">
+</div>
+
+<br>
+
+
+
+<div class="mainbody">
+    <br><br><br><br>
+    <div class="row ">
+        <div class="col-md-7">
+
+        </div>
+
+
+
+        <div class="col-md-4">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 style="margin-left: 50px">
+                        <a href="#" class="router-link-active">
+                            <span class="logo-name">MOVIE REFERENCE</span>
+                        </a>
+                    </h1>
+                </div>
+                <br>
+                <br>
+
+
+                <form id="login_" method="post"  th:action="@{/login}" >
+                    <div class="input-group input-group-lg" style="margin-left: 20px;margin-right: 20px;">
+                        <span class="input-group-addon" id="basic-addon1">账号</span>
+                        <input name="name" type="text" class="form-control" placeholder="账户" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="input-group  input-group-lg" style="margin-left: 20px;margin-right: 20px;">
+                        <span class="input-group-addon" id="basic-addon">密码</span>
+                        <input name="password" type="password" class="form-control" placeholder="密码" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+
+                    <p style="color: red" th:text="${message}"  th:unless="${#strings.isEmpty(message)}"></p>
+                    <div style="text-align: center">
+                        <button type="submit" class="btn btn-primary btn-lg" style="margin: 25px"   >登录</button>
+                        <a th:href="@{/register}"><button type="button" class="btn btn-primary btn-lg" style="margin: 25px"   >注册</button></a>
+
+
+                    </div>
+                </form>
+
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <br><br><br><br>
+</div>
+
+<script type="text/javascript">
+
+
+
+</script>
+
+</body>
+</html>
